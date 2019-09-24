@@ -6,6 +6,10 @@ public class Order {
 	
 	private List<Product> orderList = null;
 	
+	public List<Product> getOrderList() {
+		return orderList;
+	}
+
 	public Order(){
 		orderList = new ArrayList<Product>();
 	}
@@ -37,6 +41,14 @@ public class Order {
 		return total;
 	}
 	
+	public float calcDescuento() {
+		float precioProductos = calcTotal();
+		if(precioProductos>=50)
+			return (float) (precioProductos * 0.1);
+		else
+			return 0;
+	}
+	
 	public void saveOrder(String fileName){
 		FileUtil.saveToFile(fileName, orderList);
 	  }
@@ -44,5 +56,22 @@ public class Order {
 	public void initialize(){
 		orderList.clear();
 	}
+
+	@Override
+	public String toString() {
+		String cadena="";
+		cadena += "TU PEDIDO: \n";
+		cadena += "\n";
+		for (Product product : orderList) {
+			cadena += product + "\n";;
+		}
+		cadena += "\n";
+		cadena += "Precio productos: " + calcTotal() + "\n";
+		cadena += "Descuentos oferta: " + calcDescuento() +  "\n";
+		cadena += "Importe total: " + (calcTotal()-calcDescuento()) + "\n";
+		return cadena;
+	}
+	
+	
 }
 

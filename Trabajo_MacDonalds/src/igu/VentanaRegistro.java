@@ -40,12 +40,11 @@ public class VentanaRegistro extends JFrame {
 	private JButton btnCancelar;
 	private VentanaPrincipal ventana;
 
-
 	/**
 	 * Create the frame.
 	 */
 	public VentanaRegistro(VentanaPrincipal vi) {
-		this.ventana =  vi;
+		this.ventana = vi;
 		setTitle("Datos del cliente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 565, 371);
@@ -59,6 +58,7 @@ public class VentanaRegistro extends JFrame {
 		pnPrincipal.add(getBtnSiguiente());
 		pnPrincipal.add(getBtnCancelar());
 	}
+
 	private JLabel getLblNombreYApellidos() {
 		if (lblNombreYApellidos == null) {
 			lblNombreYApellidos = new JLabel("Nombre y Apellidos:");
@@ -69,6 +69,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return lblNombreYApellidos;
 	}
+
 	private JLabel getLblAoDeNacimiento() {
 		if (lblAoDeNacimiento == null) {
 			lblAoDeNacimiento = new JLabel("A\u00F1o de nacimiento:");
@@ -78,6 +79,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return lblAoDeNacimiento;
 	}
+
 	private JLabel getLblPassword() {
 		if (lblPassword == null) {
 			lblPassword = new JLabel("Password:");
@@ -87,6 +89,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return lblPassword;
 	}
+
 	private JLabel getLblReintroduzcaElPassword() {
 		if (lblReintroduzcaElPassword == null) {
 			lblReintroduzcaElPassword = new JLabel("Reintroduzca el password: ");
@@ -96,15 +99,18 @@ public class VentanaRegistro extends JFrame {
 		}
 		return lblReintroduzcaElPassword;
 	}
+
 	private JTextField getTxtNombreYApellidos() {
 		if (txtNombreYApellidos == null) {
 			txtNombreYApellidos = new JTextField();
+			txtNombreYApellidos.setText("a");
 			txtNombreYApellidos.setBounds(245, 30, 189, 26);
 			txtNombreYApellidos.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			txtNombreYApellidos.setColumns(10);
 		}
 		return txtNombreYApellidos;
 	}
+
 	private JComboBox<Integer> getComboBoxFecha() {
 		if (comboBoxFecha == null) {
 			comboBoxFecha = new JComboBox<Integer>();
@@ -116,27 +122,33 @@ public class VentanaRegistro extends JFrame {
 		}
 		return comboBoxFecha;
 	}
+
 	private JPasswordField getPasswordField() {
 		if (passwordField == null) {
 			passwordField = new JPasswordField();
+			passwordField.setText("1");
 			passwordField.setBounds(245, 88, 146, 26);
 			passwordField.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		return passwordField;
 	}
+
 	private JPasswordField getPasswordFieldRepeat() {
 		if (passwordFieldRepeat == null) {
 			passwordFieldRepeat = new JPasswordField();
+			passwordFieldRepeat.setText("1");
 			passwordFieldRepeat.setBounds(245, 116, 146, 26);
 			passwordFieldRepeat.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		}
 		return passwordFieldRepeat;
 	}
+
 	private JPanel getPnRegistro() {
 		if (pnRegistro == null) {
 			pnRegistro = new JPanel();
 			pnRegistro.setBounds(10, 21, 455, 160);
-			pnRegistro.setBorder(new TitledBorder(null, "Datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			pnRegistro.setBorder(
+					new TitledBorder(null, "Datos del cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			pnRegistro.setBackground(Color.WHITE);
 			pnRegistro.setLayout(null);
 			pnRegistro.add(getLblNombreYApellidos());
@@ -150,6 +162,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return pnRegistro;
 	}
+
 	private JPanel getPnPedido() {
 		if (pnPedido == null) {
 			pnPedido = new JPanel();
@@ -163,6 +176,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return pnPedido;
 	}
+
 	private JRadioButton getRdbtnLocal() {
 		if (rdbtnLocal == null) {
 			rdbtnLocal = new JRadioButton("Local");
@@ -175,6 +189,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return rdbtnLocal;
 	}
+
 	private JRadioButton getRdbtnLlevar() {
 		if (rdbtnLlevar == null) {
 			rdbtnLlevar = new JRadioButton("Llevar");
@@ -186,13 +201,14 @@ public class VentanaRegistro extends JFrame {
 		}
 		return rdbtnLlevar;
 	}
+
 	private JButton getBtnSiguiente() {
 		if (btnSiguiente == null) {
 			btnSiguiente = new JButton("Siguiente");
 			btnSiguiente.setBounds(278, 244, 117, 35);
 			btnSiguiente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if(check())
+					if (check())
 						mostrarVentanaConfirmacion();
 					else
 						JOptionPane.showMessageDialog(null, "Nombre vacio o la contraseña no coincide");
@@ -205,14 +221,14 @@ public class VentanaRegistro extends JFrame {
 		}
 		return btnSiguiente;
 	}
-	
-	private void mostrarVentanaConfirmacion(){
+
+	private void mostrarVentanaConfirmacion() {
 		VentanaConfirmacion vC = new VentanaConfirmacion(this);
 		vC.setModal(true);
 		vC.setLocationRelativeTo(this);
 		vC.setVisible(true);
 	}
-	
+
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
@@ -229,35 +245,36 @@ public class VentanaRegistro extends JFrame {
 		}
 		return btnCancelar;
 	}
-	
+
 	private boolean checkNombreYApellido() {
 		String nombreYApellidos = getTxtNombreYApellidos().getText();
-		if(nombreYApellidos.equals(""))
+		if (nombreYApellidos.equals(""))
 			return false;
 		else
 			return true;
 	}
-	
+
 	private boolean checkPassword() {
 		String password = String.valueOf(getPasswordField().getPassword());
 		String repeatPassword = String.valueOf(getPasswordFieldRepeat().getPassword());
-		if(!password.equals(repeatPassword) || password.equals(""))
+		if (!password.equals(repeatPassword) || password.equals(""))
 			return false;
 		else
 			return true;
 	}
-	
-	private boolean check(){
-		if(checkNombreYApellido() && checkPassword())
+
+	private boolean check() {
+		if (checkNombreYApellido() && checkPassword())
 			return true;
 		else
 			return false;
 	}
+
 	public void setModal(boolean b) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public VentanaPrincipal getVentana() {
 		return ventana;
 	}
