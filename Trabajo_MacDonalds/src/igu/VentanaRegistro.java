@@ -193,7 +193,7 @@ public class VentanaRegistro extends JFrame {
 			btnSiguiente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if(check())
-						JOptionPane.showMessageDialog(null, "Puede avanzar");
+						mostrarVentanaConfirmacion();
 					else
 						JOptionPane.showMessageDialog(null, "Nombre vacio o la contraseña no coincide");
 				}
@@ -205,6 +205,14 @@ public class VentanaRegistro extends JFrame {
 		}
 		return btnSiguiente;
 	}
+	
+	private void mostrarVentanaConfirmacion(){
+		VentanaConfirmacion vC = new VentanaConfirmacion(this);
+		vC.setModal(true);
+		vC.setLocationRelativeTo(this);
+		vC.setVisible(true);
+	}
+	
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
@@ -248,5 +256,9 @@ public class VentanaRegistro extends JFrame {
 	public void setModal(boolean b) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public VentanaPrincipal getVentana() {
+		return ventana;
 	}
 }
