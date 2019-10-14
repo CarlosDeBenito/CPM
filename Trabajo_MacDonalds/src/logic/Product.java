@@ -20,6 +20,14 @@ public class Product {
 		this(anotherItem.code, anotherItem.type, anotherItem.name, anotherItem.price, anotherItem.units);
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -67,7 +75,7 @@ public class Product {
 		}
 		return buffer.toString();
 	}
-	
+
 	public String toString2() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(this.name);

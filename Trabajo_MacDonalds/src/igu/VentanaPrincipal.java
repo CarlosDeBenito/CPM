@@ -56,6 +56,12 @@ public class VentanaPrincipal extends JFrame {
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
 	private JButton btnPedido;
+	private JPanel pnFiltros;
+	private JButton btnFiltroPostre;
+	private JButton btnFiltroHamburguesa;
+	private JButton btnFiltroBebida;
+	private JButton btnFiltroComplemento;
+	private JLabel lblProductos;
 
 	/**
 	 * Launch the application.
@@ -83,7 +89,7 @@ public class VentanaPrincipal extends JFrame {
 		setForeground(Color.WHITE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPrincipal.class.getResource("/img/logo.PNG")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 758, 515);
+		setBounds(100, 100, 948, 780);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setForeground(Color.WHITE);
@@ -104,12 +110,14 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(getBtnEliminar());
 		contentPane.add(getPnPedido());
 		contentPane.add(getBtnPedido());
+		contentPane.add(getPnFiltros());
+		contentPane.add(getLblProductos());
 	}
 
 	private JPanel getPnBotones() {
 		if (pnBotones == null) {
 			pnBotones = new JPanel();
-			pnBotones.setBounds(488, 404, 233, 29);
+			pnBotones.setBounds(668, 670, 233, 29);
 			pnBotones.setLayout(new GridLayout(0, 2, 0, 0));
 			pnBotones.add(getBtnSiguiente());
 			pnBotones.add(getBtnCancelar());
@@ -123,12 +131,17 @@ public class VentanaPrincipal extends JFrame {
 			btnSiguiente.setForeground(new Color(255, 255, 255));
 			btnSiguiente.setBackground(new Color(50, 205, 50));
 			btnSiguiente.setMnemonic('S');
+//			btnSiguiente.setEnabled(false);
 			btnSiguiente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (!order.getOrderList().isEmpty())
+					if (!order.getOrderList().isEmpty()) {
+						btnSiguiente.setEnabled(true);
 						mostrarVentanaRegistro();
+					}
 					else
-						JOptionPane.showMessageDialog(null, "Por favor seleccione al menos una unidad de un producto para continuar");
+//						btnSiguiente.setEnabled(false);
+						JOptionPane.showMessageDialog(null,
+								"Por favor seleccione al menos una unidad de un producto para continuar");
 				}
 			});
 			btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -147,7 +160,7 @@ public class VentanaPrincipal extends JFrame {
 		if (lblTitulo == null) {
 			lblTitulo = new JLabel("McDonald's");
 			lblTitulo.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 45));
-			lblTitulo.setBounds(215, 77, 279, 99);
+			lblTitulo.setBounds(408, 101, 279, 99);
 			lblTitulo.setForeground(Color.BLACK);
 			lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		}
@@ -174,7 +187,7 @@ public class VentanaPrincipal extends JFrame {
 		if (lblIcono == null) {
 			lblIcono = new JLabel("New label");
 			lblIcono.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/logo.PNG")));
-			lblIcono.setBounds(21, 59, 206, 153);
+			lblIcono.setBounds(191, 59, 208, 200);
 		}
 		return lblIcono;
 	}
@@ -184,7 +197,7 @@ public class VentanaPrincipal extends JFrame {
 			lblArticulos = new JLabel("Art\u00EDculos:");
 			lblArticulos.setDisplayedMnemonic('r');
 			lblArticulos.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblArticulos.setBounds(38, 233, 92, 26);
+			lblArticulos.setBounds(201, 319, 92, 26);
 		}
 		return lblArticulos;
 	}
@@ -192,9 +205,14 @@ public class VentanaPrincipal extends JFrame {
 	private JComboBox<Product> getCmbBoxArticulos() {
 		if (cmbBoxArticulos == null) {
 			cmbBoxArticulos = new JComboBox<Product>();
+			cmbBoxArticulos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					mostrarFotoYUnidades();
+				}
+			});
 			cmbBoxArticulos.setForeground(new Color(0, 0, 0));
 			cmbBoxArticulos.setBackground(new Color(255, 255, 255));
-			cmbBoxArticulos.setBounds(38, 266, 279, 32);
+			cmbBoxArticulos.setBounds(201, 352, 279, 32);
 			Product[] productos = menu.getProducts();
 			for (Product product : productos) {
 				cmbBoxArticulos.addItem(product);
@@ -208,7 +226,7 @@ public class VentanaPrincipal extends JFrame {
 			lblUnidades = new JLabel("Unidades:");
 			lblUnidades.setDisplayedMnemonic('U');
 			lblUnidades.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblUnidades.setBounds(352, 233, 92, 26);
+			lblUnidades.setBounds(545, 319, 92, 26);
 		}
 		return lblUnidades;
 	}
@@ -217,7 +235,7 @@ public class VentanaPrincipal extends JFrame {
 		if (spnUnidades == null) {
 			spnUnidades = new JSpinner();
 			spnUnidades.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
-			spnUnidades.setBounds(352, 266, 56, 32);
+			spnUnidades.setBounds(545, 352, 56, 32);
 		}
 		return spnUnidades;
 	}
@@ -239,7 +257,7 @@ public class VentanaPrincipal extends JFrame {
 			btnAnadir.setBackground(new Color(50, 205, 50));
 			btnAnadir.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnAnadir.setForeground(new Color(255, 255, 255));
-			btnAnadir.setBounds(504, 267, 108, 35);
+			btnAnadir.setBounds(684, 349, 108, 35);
 		}
 		return btnAnadir;
 	}
@@ -249,9 +267,6 @@ public class VentanaPrincipal extends JFrame {
 			btnEliminar = new JButton("Eliminar");
 			btnEliminar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					// if ((int) getSpnUnidades().getValue() > 0
-					// && order.existeElProducto((Product)
-					// (getCmbBoxArticulos().getSelectedItem())))
 					if (order.unidadesDelPedido(
 							(Product) (getCmbBoxArticulos().getSelectedItem())) >= (int) getSpnUnidades().getValue()) {
 						order.remove((Product) getCmbBoxArticulos().getSelectedItem(),
@@ -266,7 +281,7 @@ public class VentanaPrincipal extends JFrame {
 			btnEliminar.setForeground(Color.WHITE);
 			btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			btnEliminar.setBackground(new Color(50, 205, 50));
-			btnEliminar.setBounds(613, 267, 108, 35);
+			btnEliminar.setBounds(793, 349, 108, 35);
 		}
 		return btnEliminar;
 	}
@@ -275,7 +290,7 @@ public class VentanaPrincipal extends JFrame {
 		if (lblPrecioPedido == null) {
 			lblPrecioPedido = new JLabel("Precio Pedido:");
 			lblPrecioPedido.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			lblPrecioPedido.setBounds(352, 319, 117, 26);
+			lblPrecioPedido.setBounds(570, 451, 117, 26);
 		}
 		return lblPrecioPedido;
 	}
@@ -285,7 +300,7 @@ public class VentanaPrincipal extends JFrame {
 			txtPrecio = new JTextField();
 			txtPrecio.setEditable(false);
 			txtPrecio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			txtPrecio.setBounds(352, 351, 117, 32);
+			txtPrecio.setBounds(570, 487, 117, 32);
 			txtPrecio.setColumns(10);
 		}
 		return txtPrecio;
@@ -298,9 +313,9 @@ public class VentanaPrincipal extends JFrame {
 	private JTextPane getTxtpnsiSuPedido() {
 		if (txtpnsiSuPedido == null) {
 			txtpnsiSuPedido = new JTextPane();
-			txtpnsiSuPedido.setFont(new Font("Impact", Font.PLAIN, 15));
+			txtpnsiSuPedido.setFont(new Font("Impact", Font.PLAIN, 18));
 			txtpnsiSuPedido.setText("Si su pedido es de 50\u20AC o superior 10% de descuento!!");
-			txtpnsiSuPedido.setBounds(491, 320, 156, 63);
+			txtpnsiSuPedido.setBounds(728, 427, 173, 107);
 		}
 		return txtpnsiSuPedido;
 	}
@@ -308,8 +323,9 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel getPnPedido() {
 		if (pnPedido == null) {
 			pnPedido = new JPanel();
+			pnPedido.setVisible(false);
 			pnPedido.setLayout(null);
-			pnPedido.setBounds(505, 74, 216, 185);
+			pnPedido.setBounds(684, 111, 216, 185);
 			pnPedido.add(getScrollPane());
 		}
 		return pnPedido;
@@ -318,7 +334,7 @@ public class VentanaPrincipal extends JFrame {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(0, 0, 216, 203);
+			scrollPane.setBounds(0, 0, 216, 185);
 			scrollPane.setViewportView(getTextArea());
 		}
 		return scrollPane;
@@ -338,19 +354,126 @@ public class VentanaPrincipal extends JFrame {
 			btnPedido.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent arg0) {
+					getPnPedido().setVisible(true);
 					textJustificante.setText(getOrder().toString());
 					scrollPane.setViewportView(textJustificante);
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent e) {
+					getPnPedido().setVisible(false);
 					textJustificante.setText("");
 				}
 			});
 			btnPedido.setBackground(Color.WHITE);
 			btnPedido.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/pedido.png")));
-			btnPedido.setBounds(504, 21, 133, 49);
+			btnPedido.setBounds(684, 45, 133, 49);
 		}
 		return btnPedido;
+	}
+
+	private JPanel getPnFiltros() {
+		if (pnFiltros == null) {
+			pnFiltros = new JPanel();
+			pnFiltros.setBorder(null);
+			pnFiltros.setBackground(Color.WHITE);
+			pnFiltros.setBounds(21, 21, 149, 678);
+			pnFiltros.setLayout(new GridLayout(4, 0, 0, 0));
+			pnFiltros.add(getBtnFiltroHamburguesa());
+			pnFiltros.add(getBtnFiltroBebida());
+			pnFiltros.add(getBtnFiltroComplemento());
+			pnFiltros.add(getBtnFiltroPostre());
+		}
+		return pnFiltros;
+	}
+
+	private JButton getBtnFiltroPostre() {
+		if (btnFiltroPostre == null) {
+			btnFiltroPostre = new JButton("Postres");
+			btnFiltroPostre.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					filtro("Dessert");
+				}
+			});
+			btnFiltroPostre.setBackground(Color.WHITE);
+			btnFiltroPostre.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/PO04.png")));
+			btnFiltroPostre.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnFiltroPostre.setVerticalTextPosition(SwingConstants.BOTTOM);
+		}
+		return btnFiltroPostre;
+	}
+
+	private JButton getBtnFiltroHamburguesa() {
+		if (btnFiltroHamburguesa == null) {
+			btnFiltroHamburguesa = new JButton("Hamburguesas");
+			btnFiltroHamburguesa.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					filtro("Burger");
+				}
+			});
+			btnFiltroHamburguesa.setBackground(Color.WHITE);
+			btnFiltroHamburguesa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnFiltroHamburguesa.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/HA03.png")));
+			btnFiltroHamburguesa.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnFiltroHamburguesa.setVerticalTextPosition(SwingConstants.BOTTOM);
+		}
+		return btnFiltroHamburguesa;
+	}
+
+	private JButton getBtnFiltroBebida() {
+		if (btnFiltroBebida == null) {
+			btnFiltroBebida = new JButton("Bebidas");
+			btnFiltroBebida.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					filtro("Drink");
+				}
+			});
+			btnFiltroBebida.setBackground(Color.WHITE);
+			btnFiltroBebida.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/BE03.png")));
+			btnFiltroBebida.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnFiltroBebida.setVerticalTextPosition(SwingConstants.BOTTOM);
+		}
+		return btnFiltroBebida;
+	}
+
+	private JButton getBtnFiltroComplemento() {
+		if (btnFiltroComplemento == null) {
+			btnFiltroComplemento = new JButton("Complementos");
+			btnFiltroComplemento.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					filtro("Side");
+				}
+			});
+			btnFiltroComplemento.setBackground(Color.WHITE);
+			btnFiltroComplemento.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/img/CO05.png")));
+			btnFiltroComplemento.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnFiltroComplemento.setVerticalTextPosition(SwingConstants.BOTTOM);
+		}
+		return btnFiltroComplemento;
+	}
+
+	private JLabel getLblProductos() {
+		if (lblProductos == null) {
+			lblProductos = new JLabel("");
+			lblProductos.setBounds(236, 405, 185, 114);
+		}
+		return lblProductos;
+	}
+
+	private void mostrarFotoYUnidades() {
+		getSpnUnidades().setValue(1);
+		if (getCmbBoxArticulos().getItemCount() > 0) {
+			String fotoArticulo = "/img/" + (((Product) getCmbBoxArticulos().getSelectedItem()).getCode() + ".png");
+			getLblProductos().setIcon(new ImageIcon(VentanaPrincipal.class.getResource(fotoArticulo)));
+		}
+	}
+	
+	private void filtro(String filtro) {
+		getCmbBoxArticulos().removeAllItems();
+		Product[] productos = menu.getProducts();
+		for (Product product : productos) {
+			if (product.getType().equals(filtro))
+				cmbBoxArticulos.addItem(product);
+		}
 	}
 }
