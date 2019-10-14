@@ -73,7 +73,7 @@ public class VentanaConfirmacion extends JDialog {
 				pnPedido.add(scrollPane);
 				{	
 					JTextArea textJustificante = new JTextArea();
-					textJustificante.setText(vR.getVentana().getOrder().toString());
+					textJustificante.setText(vR.getVentana().getOrder().toStringConDescuento());
 					scrollPane.setViewportView(textJustificante);
 				}
 			}

@@ -1,25 +1,24 @@
 package logic;
 
-
 public class Product {
-	
+
 	private String code;
 	private String type;
 	private String name;
 	private float price;
 	private int units;
-	
-	public Product(String code, String type, String name, float price, int units){
+
+	public Product(String code, String type, String name, float price, int units) {
 		this.code = code;
 		this.type = type;
 		this.name = name;
 		this.price = price;
 		this.units = units;
 	}
-	
-	public Product (Product anotherItem) {
-        this(anotherItem.code, anotherItem.type, anotherItem.name, anotherItem.price, anotherItem.units);
-    }
+
+	public Product(Product anotherItem) {
+		this(anotherItem.code, anotherItem.type, anotherItem.name, anotherItem.price, anotherItem.units);
+	}
 
 	public String getName() {
 		return name;
@@ -36,6 +35,7 @@ public class Product {
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
 	public String getCode() {
 		return code;
 	}
@@ -51,6 +51,7 @@ public class Product {
 	public void setUnits(int units) {
 		this.units = units;
 	}
+
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(this.type);
@@ -59,11 +60,23 @@ public class Product {
 		buffer.append(" - ");
 		buffer.append(this.price);
 		buffer.append(" €");
-		if (this.units!=0){
+		if (this.units != 0) {
 			buffer.append(" (");
 			buffer.append(this.units);
 			buffer.append(" uds)");
-			}
+		}
 		return buffer.toString();
-	   }
+	}
+	
+	public String toString2() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(this.name);
+		buffer.append(" - ");
+		if (this.units != 0) {
+			buffer.append(" ");
+			buffer.append(this.units);
+			buffer.append(" uds");
+		}
+		return buffer.toString();
+	}
 }
