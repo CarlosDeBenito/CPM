@@ -131,17 +131,16 @@ public class VentanaPrincipal extends JFrame {
 			btnSiguiente.setForeground(new Color(255, 255, 255));
 			btnSiguiente.setBackground(new Color(50, 205, 50));
 			btnSiguiente.setMnemonic('S');
-//			btnSiguiente.setEnabled(false);
+			btnSiguiente.setEnabled(false);
 			btnSiguiente.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (!order.getOrderList().isEmpty()) {
-						btnSiguiente.setEnabled(true);
+//					if (!order.getOrderList().isEmpty()) {
+//						btnSiguiente.setEnabled(true);
 						mostrarVentanaRegistro();
-					}
-					else
-//						btnSiguiente.setEnabled(false);
-						JOptionPane.showMessageDialog(null,
-								"Por favor seleccione al menos una unidad de un producto para continuar");
+					//}
+//					else
+//						JOptionPane.showMessageDialog(null,
+//								"Por favor seleccione al menos una unidad de un producto para continuar");
 				}
 			});
 			btnSiguiente.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -249,6 +248,9 @@ public class VentanaPrincipal extends JFrame {
 						order.add((Product) getCmbBoxArticulos().getSelectedItem(), (int) getSpnUnidades().getValue());
 						String precio = order.calcTotal() + "";
 						getTxtPrecio().setText(precio);
+						getSpnUnidades().setValue(1);
+						if (!order.getOrderList().isEmpty())
+							getBtnSiguiente().setEnabled(true);
 					} else
 						JOptionPane.showMessageDialog(null, "Por favor seleccione al menos una unidad del producto");
 				}
@@ -273,6 +275,9 @@ public class VentanaPrincipal extends JFrame {
 								(int) getSpnUnidades().getValue());
 						String precio = order.calcTotal() + "";
 						getTxtPrecio().setText(precio);
+						getSpnUnidades().setValue(1);
+						if (order.getOrderList().isEmpty())
+							getBtnSiguiente().setEnabled(false);
 					} else
 						JOptionPane.showMessageDialog(null, "No puedes borrar un producto que no has pedido");
 				}
